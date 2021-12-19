@@ -55,7 +55,7 @@ const connectToCall = () => navigator.mediaDevices
     
     socket.on("user-connected", (userId) => {
       console.log('socket user-connected')
-      connectToNewUser(userId, myVideo);
+      connectToNewUser(userId, stream);
     });
     
     peer.on("open", (id) => {
