@@ -13,10 +13,6 @@ const Turn = require('node-turn');
 
 var turnServer = new Turn({
   // set options
-  authMech: 'long-term',
-  credentials: {
-    test: process.env.TURN_CREDS
-  },
   externalIps: '54.173.145.56'
 });
 turnServer.start();
