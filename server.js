@@ -1,6 +1,14 @@
 const express = require("express");
 const app = express();
-const server = require("http").Server(app);
+const path = require('path');
+const fs = require('fs');
+const homedir = require('os').homedir();
+const options = {
+  key: fs.readFileSync(path.join(homedir, '.ssh', 'canary-webrtc-key.pem')),
+  cert: fs.readFileSync(path.join(homedir, '.ssh', 'canary-webrtc-cert.pem')),
+};
+const server = https.createServer(options, app);
+
 const { v4: uuidv4 } = require("uuid");
 app.set("view engine", "ejs");
 const io = require("socket.io")(server, {
