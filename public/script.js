@@ -34,7 +34,7 @@ var peer = new Peer(undefined, {
 });
 
 let myVideoStream;
-navigator.mediaDevices
+const connectToCall = () => navigator.mediaDevices
   .getUserMedia({
     audio: true,
     video: true,
@@ -58,6 +58,8 @@ navigator.mediaDevices
       connectToNewUser(userId, stream);
     });
   });
+
+document.getElementById('connectButton').addEventListener('click', connectToCall);
 
 const connectToNewUser = (userId, stream) => {
   console.log('connectToNewUser');
