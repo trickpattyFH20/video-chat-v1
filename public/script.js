@@ -24,7 +24,10 @@ const user = prompt("Enter your name");
 var peer = new Peer(undefined, {
   path: "/peerjs",
   host: "/",
-  port: "443",
+  port: "4000",
+  // config: {
+  //   icerServers: [ { url: 'stun:stun1.l.google.com:19302' }]
+  // }
 });
 
 let myVideoStream;

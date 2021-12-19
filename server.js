@@ -20,6 +20,8 @@ const io = require("socket.io")(server, {
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
   debug: true,
+  ssl: options,
+  port: 4000,
 });
 
 app.use("/peerjs", peerServer);
