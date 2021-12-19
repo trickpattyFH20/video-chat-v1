@@ -60,6 +60,7 @@ navigator.mediaDevices
   });
 
 const connectToNewUser = (userId, stream) => {
+  console.log('connectToNewUser');
   const call = peer.call(userId, stream);
   const video = document.createElement("video");
   call.on("stream", (userVideoStream) => {
