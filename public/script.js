@@ -74,7 +74,7 @@ const connectToNewUser = (userId, stream) => {
 
 socket.on("user-connected", (userId) => {
   console.log('socket user-connected')
-  connectToNewUser(userId, stream);
+  connectToNewUser(userId, myVideo);
 });
 
 const addVideoStream = (video, stream) => {
