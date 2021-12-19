@@ -26,7 +26,10 @@ var peer = new Peer(undefined, {
   host: "/",
   port: "4000",
   config: {
-    icerServers: [ { url: 'stun:stun1.l.google.com:19302' }]
+    icerServers: [
+      // { url: 'stun:stun1.l.google.com:19302' },
+      { url: 'ec2-54-173-145-56.compute-1.amazonaws.com' , username: 'test', credential: process.env.TURN_CREDS}
+    ]
   }
 });
 

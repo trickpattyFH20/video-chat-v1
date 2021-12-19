@@ -9,6 +9,17 @@ const options = {
   cert: fs.readFileSync(path.join(homedir, '.ssh', 'canary-webrtc-cert.pem')),
 };
 const server = https.createServer(options, app);
+const Turn = require('node-turn');
+
+var turnServer = new Turn({
+  // set options
+  authMech: 'long-term',
+  credentials: {
+    test: process.env.TURN_CREDS
+  },
+  externalIps: '54.173.145.56'
+});
+turnServer.start();
 
 const { v4: uuidv4 } = require("uuid");
 app.set("view engine", "ejs");
