@@ -34,6 +34,20 @@ var peer = new Peer(undefined, {
 });
 
 let myVideoStream;
+peer.on("call", (call) => {
+  console.log('call');
+  call.answer(stream);
+  const video = document.createElement("video");
+  call.on("stream", (userVideoStream) => {
+    console.log('stream add remote users video');
+    addVideoStream(video, userVideoStream);
+  });
+});
+
+socket.on("user-connected", (userId) => {
+  console.log('socket user-connected')
+  connectToNewUser(userId, stream);
+});
 const connectToCall = () => navigator.mediaDevices
   .getUserMedia({
     audio: true,
@@ -43,20 +57,7 @@ const connectToCall = () => navigator.mediaDevices
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
 
-    peer.on("call", (call) => {
-      console.log('call');
-      call.answer(stream);
-      const video = document.createElement("video");
-      call.on("stream", (userVideoStream) => {
-        console.log('stream add remote users video');
-        addVideoStream(video, userVideoStream);
-      });
-    });
-
-    socket.on("user-connected", (userId) => {
-      console.log('socket user-connected')
-      connectToNewUser(userId, stream);
-    });
+    socket.emit("join-room", ROOM_ID, id, user);
   });
 
 document.getElementById('connectButton').addEventListener('click', connectToCall);
@@ -72,8 +73,7 @@ const connectToNewUser = (userId, stream) => {
 };
 
 peer.on("open", (id) => {
-  console.log("peer open")
-  socket.emit("join-room", ROOM_ID, id, user);
+  console.log("peer open, join room")
 });
 
 const addVideoStream = (video, stream) => {
