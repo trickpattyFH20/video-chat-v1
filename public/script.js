@@ -25,9 +25,9 @@ var peer = new Peer(undefined, {
   path: "/peerjs",
   host: "/",
   port: "4000",
-  // config: {
-  //   icerServers: [ { url: 'stun:stun1.l.google.com:19302' }]
-  // }
+  config: {
+    icerServers: [ { url: 'stun:stun1.l.google.com:19302' }]
+  }
 });
 
 let myVideoStream;
