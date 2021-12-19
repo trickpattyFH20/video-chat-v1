@@ -21,33 +21,7 @@ showChat.addEventListener("click", () => {
 
 const user = prompt("Enter your name");
 
-var peer = new Peer(undefined, {
-  path: "/peerjs",
-  host: "/",
-  port: "4000",
-  config: {
-    icerServers: [
-      // { url: 'stun:stun1.l.google.com:19302' },
-      { url: 'ec2-54-173-145-56.compute-1.amazonaws.com' }
-    ]
-  }
-});
-
 let myVideoStream;
-peer.on("call", (call) => {
-  console.log('call');
-  call.answer(stream);
-  const video = document.createElement("video");
-  call.on("stream", (userVideoStream) => {
-    console.log('stream add remote users video');
-    addVideoStream(video, userVideoStream);
-  });
-});
-
-socket.on("user-connected", (userId) => {
-  console.log('socket user-connected')
-  connectToNewUser(userId, stream);
-});
 const connectToCall = () => navigator.mediaDevices
   .getUserMedia({
     audio: true,
@@ -57,7 +31,33 @@ const connectToCall = () => navigator.mediaDevices
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
 
-    socket.emit("join-room", ROOM_ID, id, user);
+    var peer = new Peer(undefined, {
+      path: "/peerjs",
+      host: "/",
+      port: "4000",
+      config: {
+        icerServers: [
+          // { url: 'stun:stun1.l.google.com:19302' },
+          { url: 'ec2-54-173-145-56.compute-1.amazonaws.com' }
+        ]
+      }
+    });
+    
+    peer.on("open", (id) => {
+      console.log("peer open, join room")
+      socket.emit("join-room", ROOM_ID, id, user);
+    });
+
+    peer.on("call", (call) => {
+      console.log('call');
+      call.answer(stream);
+      const video = document.createElement("video");
+      call.on("stream", (userVideoStream) => {
+        console.log('stream add remote users video');
+        addVideoStream(video, userVideoStream);
+      });
+    });
+
   });
 
 document.getElementById('connectButton').addEventListener('click', connectToCall);
@@ -72,8 +72,9 @@ const connectToNewUser = (userId, stream) => {
   });
 };
 
-peer.on("open", (id) => {
-  console.log("peer open, join room")
+socket.on("user-connected", (userId) => {
+  console.log('socket user-connected')
+  connectToNewUser(userId, stream);
 });
 
 const addVideoStream = (video, stream) => {
