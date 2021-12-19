@@ -44,14 +44,17 @@ navigator.mediaDevices
     addVideoStream(myVideo, stream);
 
     peer.on("call", (call) => {
+      console.log('call');
       call.answer(stream);
       const video = document.createElement("video");
       call.on("stream", (userVideoStream) => {
+        console.log('stream add remote users video');
         addVideoStream(video, userVideoStream);
       });
     });
 
     socket.on("user-connected", (userId) => {
+      console.log('socket user-connected')
       connectToNewUser(userId, stream);
     });
   });
@@ -65,6 +68,7 @@ const connectToNewUser = (userId, stream) => {
 };
 
 peer.on("open", (id) => {
+  console.log("peer open")
   socket.emit("join-room", ROOM_ID, id, user);
 });
 
