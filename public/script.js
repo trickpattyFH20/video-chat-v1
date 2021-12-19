@@ -66,6 +66,7 @@ const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream);
   const video = document.createElement("video");
   call.on("stream", (userVideoStream) => {
+    console.log('got remote user video');
     addVideoStream(video, userVideoStream);
   });
 };
