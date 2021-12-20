@@ -38,7 +38,7 @@ const connectToCall = () => navigator.mediaDevices
       config: {
         icerServers: [
           { url: 'stun:stun1.l.google.com:19302' },
-          { url: 'ec2-54-173-145-56.compute-1.amazonaws.com' }
+          { url: 'turn:ec2-54-173-145-56.compute-1.amazonaws.com' }
         ]
       }
     });
