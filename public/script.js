@@ -34,7 +34,7 @@ const connectToCall = () => navigator.mediaDevices
     var peer = new Peer(undefined, {
       path: "/peerjs",
       host: "/",
-      port: "4000",
+      port: "3030",
       config: {
         iceTransportPolicy: 'relay',
         iceServers: [
