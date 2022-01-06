@@ -5,8 +5,8 @@ const path = require('path');
 const fs = require('fs');
 const homedir = require('os').homedir();
 const options = {
-  key: fs.readFileSync(path.join(homedir, '.ssh', 'canary-webrtc-key.pem')),
-  cert: fs.readFileSync(path.join(homedir, '.ssh', 'canary-webrtc-cert.pem')),
+  key: fs.readFileSync(path.join(homedir, '.keys', 'canary-webrtc-key.pem')),
+  cert: fs.readFileSync(path.join(homedir, '.keys', 'canary-webrtc-cert.pem')),
 };
 const server = https.createServer(options, app);
 const Turn = require('node-turn');

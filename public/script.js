@@ -36,9 +36,10 @@ const connectToCall = () => navigator.mediaDevices
       host: "/",
       port: "4000",
       config: {
-        icerServers: [
+        iceTransportPolicy: 'relay',
+        iceServers: [
           { url: 'stun:stun1.l.google.com:19302' },
-          { url: 'turn:ec2-54-173-145-56.compute-1.amazonaws.com' }
+          { url: 'turn:ec2-54-165-1-133.compute-1.amazonaws.com:3478?transport=udp', credential: 'mypassword', username: 'myuser' }
         ]
       }
     });
